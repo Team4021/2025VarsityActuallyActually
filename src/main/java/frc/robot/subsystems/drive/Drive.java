@@ -14,12 +14,19 @@
 package frc.robot.subsystems.drive;
 
 import static edu.wpi.first.units.Units.*;
+<<<<<<< HEAD
 
 import com.ctre.phoenix6.CANBus;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+=======
+import static frc.robot.subsystems.drive.DriveConstants.*;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.PathPlannerLogging;
@@ -30,7 +37,10 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+<<<<<<< HEAD
 import edu.wpi.first.math.geometry.Translation2d;
+=======
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -38,7 +48,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+<<<<<<< HEAD
 import edu.wpi.first.math.system.plant.DCMotor;
+=======
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -48,7 +61,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
+<<<<<<< HEAD
 import frc.robot.generated.TunerConstants;
+=======
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import frc.robot.util.LocalADStarAK;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -56,6 +72,7 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
+<<<<<<< HEAD
   // TunerConstants doesn't include these constants, so they are declared locally
   static final double ODOMETRY_FREQUENCY =
       new CANBus(TunerConstants.DrivetrainConstants.CANBusName).isNetworkFD() ? 250.0 : 100.0;
@@ -86,6 +103,8 @@ public class Drive extends SubsystemBase {
               1),
           getModuleTranslations());
 
+=======
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   static final Lock odometryLock = new ReentrantLock();
   private final GyroIO gyroIO;
   private final GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
@@ -94,7 +113,11 @@ public class Drive extends SubsystemBase {
   private final Alert gyroDisconnectedAlert =
       new Alert("Disconnected gyro, using kinematics as fallback.", AlertType.kError);
 
+<<<<<<< HEAD
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(getModuleTranslations());
+=======
+  private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(moduleTranslations);
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   private Rotation2d rawGyroRotation = new Rotation2d();
   private SwerveModulePosition[] lastModulePositions = // For delta tracking
       new SwerveModulePosition[] {
@@ -113,16 +136,27 @@ public class Drive extends SubsystemBase {
       ModuleIO blModuleIO,
       ModuleIO brModuleIO) {
     this.gyroIO = gyroIO;
+<<<<<<< HEAD
     modules[0] = new Module(flModuleIO, 0, TunerConstants.FrontLeft);
     modules[1] = new Module(frModuleIO, 1, TunerConstants.FrontRight);
     modules[2] = new Module(blModuleIO, 2, TunerConstants.BackLeft);
     modules[3] = new Module(brModuleIO, 3, TunerConstants.BackRight);
+=======
+    modules[0] = new Module(flModuleIO, 0);
+    modules[1] = new Module(frModuleIO, 1);
+    modules[2] = new Module(blModuleIO, 2);
+    modules[3] = new Module(brModuleIO, 3);
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 
     // Usage reporting for swerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_AdvantageKit);
 
     // Start odometry thread
+<<<<<<< HEAD
     PhoenixOdometryThread.getInstance().start();
+=======
+    SparkOdometryThread.getInstance().start();
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 
     // Configure AutoBuilder for PathPlanner
     AutoBuilder.configure(
@@ -132,7 +166,11 @@ public class Drive extends SubsystemBase {
         this::runVelocity,
         new PPHolonomicDriveController(
             new PIDConstants(5.0, 0.0, 0.0), new PIDConstants(5.0, 0.0, 0.0)),
+<<<<<<< HEAD
         PP_CONFIG,
+=======
+        ppConfig,
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
         () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
         this);
     Pathfinding.setPathfinder(new LocalADStarAK());
@@ -226,9 +264,15 @@ public class Drive extends SubsystemBase {
     // Calculate module setpoints
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
+<<<<<<< HEAD
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, TunerConstants.kSpeedAt12Volts);
 
     // Log unoptimized setpoints and setpoint speeds
+=======
+    SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, maxSpeedMetersPerSec);
+
+    // Log unoptimized setpoints
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
     Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
     Logger.recordOutput("SwerveChassisSpeeds/Setpoints", discreteSpeeds);
 
@@ -260,7 +304,11 @@ public class Drive extends SubsystemBase {
   public void stopWithX() {
     Rotation2d[] headings = new Rotation2d[4];
     for (int i = 0; i < 4; i++) {
+<<<<<<< HEAD
       headings[i] = getModuleTranslations()[i].getAngle();
+=======
+      headings[i] = moduleTranslations[i].getAngle();
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
     }
     kinematics.resetHeadings(headings);
     stop();
@@ -312,7 +360,11 @@ public class Drive extends SubsystemBase {
     return values;
   }
 
+<<<<<<< HEAD
   /** Returns the average velocity of the modules in rotations/sec (Phoenix native units). */
+=======
+  /** Returns the average velocity of the modules in rad/sec. */
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   public double getFFCharacterizationVelocity() {
     double output = 0.0;
     for (int i = 0; i < 4; i++) {
@@ -348,11 +400,16 @@ public class Drive extends SubsystemBase {
 
   /** Returns the maximum linear speed in meters per sec. */
   public double getMaxLinearSpeedMetersPerSec() {
+<<<<<<< HEAD
     return TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
+=======
+    return maxSpeedMetersPerSec;
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   }
 
   /** Returns the maximum angular speed in radians per sec. */
   public double getMaxAngularSpeedRadPerSec() {
+<<<<<<< HEAD
     return getMaxLinearSpeedMetersPerSec() / DRIVE_BASE_RADIUS;
   }
 
@@ -364,5 +421,8 @@ public class Drive extends SubsystemBase {
       new Translation2d(TunerConstants.BackLeft.LocationX, TunerConstants.BackLeft.LocationY),
       new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)
     };
+=======
+    return maxSpeedMetersPerSec / driveBaseRadius;
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   }
 }

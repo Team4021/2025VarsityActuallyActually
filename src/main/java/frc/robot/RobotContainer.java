@@ -23,13 +23,20 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+<<<<<<< HEAD
 import frc.robot.generated.TunerConstants;
+=======
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
+<<<<<<< HEAD
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
+=======
+import frc.robot.subsystems.drive.ModuleIOSpark;
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -56,10 +63,17 @@ public class RobotContainer {
         drive =
             new Drive(
                 new GyroIOPigeon2(),
+<<<<<<< HEAD
                 new ModuleIOTalonFX(TunerConstants.FrontLeft),
                 new ModuleIOTalonFX(TunerConstants.FrontRight),
                 new ModuleIOTalonFX(TunerConstants.BackLeft),
                 new ModuleIOTalonFX(TunerConstants.BackRight));
+=======
+                new ModuleIOSpark(0),
+                new ModuleIOSpark(1),
+                new ModuleIOSpark(2),
+                new ModuleIOSpark(3));
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
         break;
 
       case SIM:
@@ -67,10 +81,17 @@ public class RobotContainer {
         drive =
             new Drive(
                 new GyroIO() {},
+<<<<<<< HEAD
                 new ModuleIOSim(TunerConstants.FrontLeft),
                 new ModuleIOSim(TunerConstants.FrontRight),
                 new ModuleIOSim(TunerConstants.BackLeft),
                 new ModuleIOSim(TunerConstants.BackRight));
+=======
+                new ModuleIOSim(),
+                new ModuleIOSim(),
+                new ModuleIOSim(),
+                new ModuleIOSim());
+>>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
         break;
 
       default:
