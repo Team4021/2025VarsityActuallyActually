@@ -13,29 +13,16 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.DriveMotorArrangement;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.generated.TunerConstants;
-=======
-import edu.wpi.first.wpilibj.Threads;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-<<<<<<< HEAD
-=======
 import org.littletonrobotics.urcl.URCL;
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -88,34 +75,12 @@ public class Robot extends LoggedRobot {
         break;
     }
 
-<<<<<<< HEAD
-    // Start AdvantageKit logger
-    Logger.start();
-
-    // Check for valid swerve config
-    var modules =
-        new SwerveModuleConstants[] {
-          TunerConstants.FrontLeft,
-          TunerConstants.FrontRight,
-          TunerConstants.BackLeft,
-          TunerConstants.BackRight
-        };
-    for (var constants : modules) {
-      if (constants.DriveMotorType != DriveMotorArrangement.TalonFX_Integrated
-          || constants.SteerMotorType != SteerMotorArrangement.TalonFX_Integrated) {
-        throw new RuntimeException(
-            "You are using an unsupported swerve configuration, which this template does not support without manual customization. The 2025 release of Phoenix supports some swerve configurations which were not available during 2025 beta testing, preventing any development and support from the AdvantageKit developers.");
-      }
-    }
-
-=======
     // Initialize URCL
     Logger.registerURCL(URCL.startExternal());
 
     // Start AdvantageKit logger
     Logger.start();
 
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();

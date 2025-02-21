@@ -13,37 +13,6 @@
 
 package frc.robot.subsystems.drive;
 
-<<<<<<< HEAD
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
-
-/**
- * Physics sim implementation of module IO. The sim models are configured using a set of module
- * constants from Phoenix. Simulation is always based on voltage control.
- */
-public class ModuleIOSim implements ModuleIO {
-  // TunerConstants doesn't support separate sim constants, so they are declared locally
-  private static final double DRIVE_KP = 0.05;
-  private static final double DRIVE_KD = 0.0;
-  private static final double DRIVE_KS = 0.0;
-  private static final double DRIVE_KV_ROT =
-      0.91035; // Same units as TunerConstants: (volt * secs) / rotation
-  private static final double DRIVE_KV = 1.0 / Units.rotationsToRadians(1.0 / DRIVE_KV_ROT);
-  private static final double TURN_KP = 8.0;
-  private static final double TURN_KD = 0.0;
-  private static final DCMotor DRIVE_GEARBOX = DCMotor.getKrakenX60Foc(1);
-  private static final DCMotor TURN_GEARBOX = DCMotor.getKrakenX60Foc(1);
-
-=======
 import static frc.robot.subsystems.drive.DriveConstants.*;
 
 import edu.wpi.first.math.MathUtil;
@@ -55,39 +24,17 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
 /** Physics sim implementation of module IO. */
 public class ModuleIOSim implements ModuleIO {
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   private final DCMotorSim driveSim;
   private final DCMotorSim turnSim;
 
   private boolean driveClosedLoop = false;
   private boolean turnClosedLoop = false;
-<<<<<<< HEAD
-  private PIDController driveController = new PIDController(DRIVE_KP, 0, DRIVE_KD);
-  private PIDController turnController = new PIDController(TURN_KP, 0, TURN_KD);
-=======
   private PIDController driveController = new PIDController(driveSimP, 0, driveSimD);
   private PIDController turnController = new PIDController(turnSimP, 0, turnSimD);
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   private double driveFFVolts = 0.0;
   private double driveAppliedVolts = 0.0;
   private double turnAppliedVolts = 0.0;
 
-<<<<<<< HEAD
-  public ModuleIOSim(
-      SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>
-          constants) {
-    // Create drive and turn sim models
-    driveSim =
-        new DCMotorSim(
-            LinearSystemId.createDCMotorSystem(
-                DRIVE_GEARBOX, constants.DriveInertia, constants.DriveMotorGearRatio),
-            DRIVE_GEARBOX);
-    turnSim =
-        new DCMotorSim(
-            LinearSystemId.createDCMotorSystem(
-                TURN_GEARBOX, constants.SteerInertia, constants.SteerMotorGearRatio),
-            TURN_GEARBOX);
-=======
   public ModuleIOSim() {
     // Create drive and turn sim models
     driveSim =
@@ -98,7 +45,6 @@ public class ModuleIOSim implements ModuleIO {
         new DCMotorSim(
             LinearSystemId.createDCMotorSystem(turnGearbox, 0.004, turnMotorReduction),
             turnGearbox);
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 
     // Enable wrapping for turn PID
     turnController.enableContinuousInput(-Math.PI, Math.PI);
@@ -134,11 +80,6 @@ public class ModuleIOSim implements ModuleIO {
 
     // Update turn inputs
     inputs.turnConnected = true;
-<<<<<<< HEAD
-    inputs.turnEncoderConnected = true;
-    inputs.turnAbsolutePosition = new Rotation2d(turnSim.getAngularPositionRad());
-=======
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
     inputs.turnPosition = new Rotation2d(turnSim.getAngularPositionRad());
     inputs.turnVelocityRadPerSec = turnSim.getAngularVelocityRadPerSec();
     inputs.turnAppliedVolts = turnAppliedVolts;
@@ -165,11 +106,7 @@ public class ModuleIOSim implements ModuleIO {
   @Override
   public void setDriveVelocity(double velocityRadPerSec) {
     driveClosedLoop = true;
-<<<<<<< HEAD
-    driveFFVolts = DRIVE_KS * Math.signum(velocityRadPerSec) + DRIVE_KV * velocityRadPerSec;
-=======
     driveFFVolts = driveSimKs * Math.signum(velocityRadPerSec) + driveSimKv * velocityRadPerSec;
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
     driveController.setSetpoint(velocityRadPerSec);
   }
 
