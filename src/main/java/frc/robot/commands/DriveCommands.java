@@ -29,10 +29,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.drive.Drive;
-<<<<<<< HEAD
-=======
 import frc.robot.subsystems.drive.DriveConstants;
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -92,7 +89,7 @@ public class DriveCommands {
               new ChassisSpeeds(
                   linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
                   linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                  omega * drive.getMaxAngularSpeedRadPerSec());
+                  -omega * drive.getMaxAngularSpeedRadPerSec());
           boolean isFlipped =
               DriverStation.getAlliance().isPresent()
                   && DriverStation.getAlliance().get() == Alliance.Red;
@@ -274,12 +271,8 @@ public class DriveCommands {
                       for (int i = 0; i < 4; i++) {
                         wheelDelta += Math.abs(positions[i] - state.positions[i]) / 4.0;
                       }
-<<<<<<< HEAD
-                      double wheelRadius = (state.gyroDelta * Drive.DRIVE_BASE_RADIUS) / wheelDelta;
-=======
                       double wheelRadius =
                           (state.gyroDelta * DriveConstants.driveBaseRadius) / wheelDelta;
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 
                       NumberFormat formatter = new DecimalFormat("#0.000");
                       System.out.println(

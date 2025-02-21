@@ -13,11 +13,7 @@
 
 package frc.robot.subsystems.drive;
 
-<<<<<<< HEAD
-=======
 import static frc.robot.subsystems.drive.DriveConstants.*;
-
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
@@ -27,22 +23,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
-<<<<<<< HEAD
-import frc.robot.generated.TunerConstants;
-=======
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
 import java.util.Queue;
 
 /** IO implementation for Pigeon 2. */
 public class GyroIOPigeon2 implements GyroIO {
-<<<<<<< HEAD
-  private final Pigeon2 pigeon =
-      new Pigeon2(
-          TunerConstants.DrivetrainConstants.Pigeon2Id,
-          TunerConstants.DrivetrainConstants.CANBusName);
-=======
   private final Pigeon2 pigeon = new Pigeon2(pigeonCanId);
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   private final StatusSignal<Angle> yaw = pigeon.getYaw();
   private final Queue<Double> yawPositionQueue;
   private final Queue<Double> yawTimestampQueue;
@@ -51,19 +36,11 @@ public class GyroIOPigeon2 implements GyroIO {
   public GyroIOPigeon2() {
     pigeon.getConfigurator().apply(new Pigeon2Configuration());
     pigeon.getConfigurator().setYaw(0.0);
-<<<<<<< HEAD
-    yaw.setUpdateFrequency(Drive.ODOMETRY_FREQUENCY);
-    yawVelocity.setUpdateFrequency(50.0);
-    pigeon.optimizeBusUtilization();
-    yawTimestampQueue = PhoenixOdometryThread.getInstance().makeTimestampQueue();
-    yawPositionQueue = PhoenixOdometryThread.getInstance().registerSignal(pigeon.getYaw());
-=======
     yaw.setUpdateFrequency(odometryFrequency);
     yawVelocity.setUpdateFrequency(50.0);
     pigeon.optimizeBusUtilization();
     yawTimestampQueue = SparkOdometryThread.getInstance().makeTimestampQueue();
     yawPositionQueue = SparkOdometryThread.getInstance().registerSignal(yaw::getValueAsDouble);
->>>>>>> e3a6543de2e47dade2fd5fb281abb7c3e3031971
   }
 
   @Override

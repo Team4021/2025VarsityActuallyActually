@@ -112,7 +112,7 @@ public class ModuleIOSpark implements ModuleIO {
     // turnEncoder = turnSpark.getAbsoluteEncoder();
     driveController = driveSpark.getClosedLoopController();
     // turnController = turnSpark.getClosedLoopController();
-    turnController = new PIDController(0.075, 0, 0);
+    turnController = new PIDController(0.6, 0, 0);
 
     // Configure drive motor
     var driveConfig = new SparkMaxConfig();
